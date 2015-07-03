@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4586B8C51B45BB4600FD1022 /* GameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4586B8C41B45BB4600FD1022 /* GameOverViewController.m */; };
+		4586B8C81B45DDD000FD1022 /* LevelCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4586B8C71B45DDD000FD1022 /* LevelCompleteViewController.m */; };
+		4586B8C91B45E22400FD1022 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4529F12E1B0A87B40089F99D /* QuartzCore.framework */; };
 		45E154E11B000D8A0025594B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E154E01B000D8A0025594B /* main.m */; };
 		45E154E41B000D8A0025594B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E154E31B000D8A0025594B /* AppDelegate.m */; };
 		45E154E71B000D8A0025594B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E154E61B000D8A0025594B /* ViewController.m */; };
@@ -27,6 +30,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4529F12E1B0A87B40089F99D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4586B8C31B45BB4600FD1022 /* GameOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverViewController.h; sourceTree = "<group>"; };
+		4586B8C41B45BB4600FD1022 /* GameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewController.m; sourceTree = "<group>"; };
+		4586B8C61B45DDD000FD1022 /* LevelCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelCompleteViewController.h; sourceTree = "<group>"; };
+		4586B8C71B45DDD000FD1022 /* LevelCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelCompleteViewController.m; sourceTree = "<group>"; };
 		45E154DB1B000D890025594B /* sudoku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sudoku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E154DF1B000D8A0025594B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45E154E01B000D8A0025594B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -47,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4586B8C91B45E22400FD1022 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +72,7 @@
 		45E154D21B000D890025594B = {
 			isa = PBXGroup;
 			children = (
+				4529F12E1B0A87B40089F99D /* QuartzCore.framework */,
 				45E154DD1B000D890025594B /* sudoku */,
 				45E154F71B000D8A0025594B /* sudokuTests */,
 				45E154DC1B000D890025594B /* Products */,
@@ -85,7 +95,11 @@
 				45E154E31B000D8A0025594B /* AppDelegate.m */,
 				45E154E51B000D8A0025594B /* ViewController.h */,
 				45E154E61B000D8A0025594B /* ViewController.m */,
+				4586B8C61B45DDD000FD1022 /* LevelCompleteViewController.h */,
+				4586B8C71B45DDD000FD1022 /* LevelCompleteViewController.m */,
 				45E154E81B000D8A0025594B /* Main.storyboard */,
+				4586B8C31B45BB4600FD1022 /* GameOverViewController.h */,
+				4586B8C41B45BB4600FD1022 /* GameOverViewController.m */,
 				45E154EB1B000D8A0025594B /* Images.xcassets */,
 				45E154ED1B000D8A0025594B /* LaunchScreen.xib */,
 				45E154DE1B000D890025594B /* Supporting Files */,
@@ -219,6 +233,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4586B8C51B45BB4600FD1022 /* GameOverViewController.m in Sources */,
+				4586B8C81B45DDD000FD1022 /* LevelCompleteViewController.m in Sources */,
 				45E154E71B000D8A0025594B /* ViewController.m in Sources */,
 				45E154E41B000D8A0025594B /* AppDelegate.m in Sources */,
 				45E154E11B000D8A0025594B /* main.m in Sources */,
@@ -280,7 +296,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Boryk (F6ALBB84EY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Andrew Boryk (F6ALBB84EY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -323,7 +340,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Boryk (F6ALBB84EY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Andrew Boryk (F6ALBB84EY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -347,6 +365,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Boryk (F6ALBB84EY)";
 				INFOPLIST_FILE = sudoku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -357,6 +376,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Andrew Boryk (F6ALBB84EY)";
 				INFOPLIST_FILE = sudoku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -416,6 +436,7 @@
 				45E155001B000D8A0025594B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		45E155011B000D8A0025594B /* Build configuration list for PBXNativeTarget "sudokuTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +445,7 @@
 				45E155031B000D8A0025594B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
