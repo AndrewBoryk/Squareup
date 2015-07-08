@@ -23,6 +23,7 @@ int currentCounter;
 UIColor *tempColor;
 int tempScore;
 NSUserDefaults *defaulted;
+BOOL gameStarted;
 
 #define RADIANS(degrees) ((degrees * M_PI) / 180.0)
 
@@ -31,6 +32,7 @@ NSUserDefaults *defaulted;
 - (void)viewDidLoad {
     [super viewDidLoad];
     defaulted = [NSUserDefaults standardUserDefaults];
+    gameStarted = false;
     if (![defaulted integerForKey:@"level"]) {
         NSInteger i = 1;
         [defaulted setInteger:i forKey:@"level"];
@@ -42,13 +44,15 @@ NSUserDefaults *defaulted;
     score = 0;
     currentCounter = 0;
     tempColor = [UIColor colorWithRed:26.0f/255.0f green:188.0f/255.0f blue:156.0f/255.0f alpha:1.0f];
+    self.stopButton.backgroundColor = tempColor;
+    self.gameTimeBar.progressTintColor = tempColor;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     for (UIButton *square in allSquaresArray) {
         [square setBackgroundColor:[self returnWithColor]];
         square.layer.cornerRadius = 5.0f;
-        square.layer.borderColor = [UIColor blackColor].CGColor;
+        square.layer.borderColor = [self colorWithHexString:@"34495e"].CGColor;
         square.layer.shadowColor = [UIColor blackColor].CGColor;
         square.layer.shadowRadius = 0;
         square.layer.shadowOpacity = 0.6;
@@ -58,7 +62,6 @@ NSUserDefaults *defaulted;
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    gameTimer = [NSTimer scheduledTimerWithTimeInterval:0.001 target:self selector:@selector(gameCountDown) userInfo:nil repeats:YES];
 }
 
 #pragma mark Square Actions
@@ -169,10 +172,15 @@ NSUserDefaults *defaulted;
     }
     else{
         if (!self.compColor) {
+            if (!gameStarted) {
+                gameStarted = true;
+                gameTimer = [NSTimer scheduledTimerWithTimeInterval:0.001 target:self selector:@selector(gameCountDown) userInfo:nil repeats:YES];
+            }
             currentCounter = 1;
             self.compColor = button.backgroundColor;
             tempColor = self.compColor;
             self.gameTimeBar.progressTintColor = self.compColor;
+            self.stopButton.backgroundColor = self.compColor;
             squareCounter = 2.5f;
             self.squareCounterLabel.text = [NSString stringWithFormat:@"%.02f", squareCounter];
             [button setBackgroundColor: nil];
@@ -209,6 +217,7 @@ NSUserDefaults *defaulted;
     NSInteger i = [defaulted integerForKey:@"level"]*1000;
     if (score >= i) {
         [gameTimer invalidate];
+        gameStarted = false;
         NSInteger level = [defaulted integerForKey:@"level"];
         level++;
         [defaulted setInteger:level forKey:@"level"];
@@ -232,9 +241,15 @@ NSUserDefaults *defaulted;
         int tracker = 0;
         for (UIButton *square in squareColorValues) {
             if ([square.backgroundColor isEqual:self.compColor]) {
+                square.transform = CGAffineTransformMakeScale(1.11,1.11);
+                [UIView beginAnimations:@"button" context:nil];
+                [UIView setAnimationDuration:0.2];
+                square.transform = CGAffineTransformMakeScale(1,1);
+                square.alpha = 1.0f;
+                [UIView commitAnimations];
                 square.layer.borderWidth = 0.5f;
-                square.layer.masksToBounds = NO;
-                square.layer.shadowRadius = 12;
+//                square.layer.masksToBounds = NO;
+//                square.layer.shadowRadius = 12;
                 tracker++;
             }
         }
@@ -252,7 +267,7 @@ NSUserDefaults *defaulted;
 }
 
 -(int)randomizeColor{
-    int random = 1 + arc4random() % 7;
+    int random = 1 + arc4random() % 6;
     return random;
 }
 
@@ -260,8 +275,10 @@ NSUserDefaults *defaulted;
     int i = [self randomizeColor];
     switch (i) {
         case 1:
-            //Turquoise
-            return [UIColor colorWithRed:26.0f/255.0f green:188.0f/255.0f blue:156.0f/255.0f alpha:1.0f];
+//            //Turquoise
+//            return [UIColor colorWithRed:26.0f/255.0f green:188.0f/255.0f blue:156.0f/255.0f alpha:1.0f];
+            //Alizarin
+            return [UIColor colorWithRed:231.0f/255.0f green:76.0f/255.0f blue:60.0f/255.0f alpha:1.0f];
             break;
         case 2:
             //Emerald
@@ -283,10 +300,9 @@ NSUserDefaults *defaulted;
             //Carrot
             return [UIColor colorWithRed:230.0f/255.0f green:126.0f/255.0f blue:34.0f/255.0f alpha:1.0f];
             break;
-        case 7:
-            //Alizarin
-            return [UIColor colorWithRed:231.0f/255.0f green:76.0f/255.0f blue:60.0f/255.0f alpha:1.0f];
-            break;
+//        case 7:
+//            
+//            break;
             
         default:
             break;
@@ -304,6 +320,7 @@ NSUserDefaults *defaulted;
     {
         self.gameTimeBar.progress = 0;
         [gameTimer invalidate];
+        gameStarted = false;
         NSLog(@"Score: %i", score);
         tempScore = score;
         [self performSegueWithIdentifier:@"gameOver" sender:self];
@@ -323,6 +340,21 @@ NSUserDefaults *defaulted;
         }
     }
     if (numLeft == 0) {
+        if (currentCounter >= 10) {
+            score += 250;
+        }
+        if (currentCounter >= 9) {
+            score += 200;
+        }
+        if (currentCounter >= 7) {
+            score += 150;
+        }
+        if (currentCounter >= 5) {
+            score += 100;
+        }
+        if (currentCounter >= 3) {
+            score += 50;
+        }
         [self stopComp];
     }
 }
@@ -466,6 +498,42 @@ NSUserDefaults *defaulted;
     if ([segue.identifier isEqualToString:@"win"]) {
         [[segue.destinationViewController view] setBackgroundColor:tempColor];
     }
+}
+
+-(UIColor*)colorWithHexString:(NSString*)hex
+{
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
 }
 
 - (IBAction)stopAction:(id)sender {

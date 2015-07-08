@@ -23,7 +23,7 @@ NSUserDefaults *defaults;
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     defaults = [NSUserDefaults standardUserDefaults];
-    self.levelLabel.text = [NSString stringWithFormat:@"%li", (long)[defaults integerForKey:@"level"]];
+    self.levelLabel.text = [NSString stringWithFormat:@"%li", ((long)[defaults integerForKey:@"level"]-1)];
     [self backgroundSetters:self.levelBackground];
     [self backgroundSetters:self.nextButton];
 }
